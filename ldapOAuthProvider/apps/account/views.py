@@ -60,24 +60,3 @@ def logout(request):
         {}, 
         RequestContext(request))
 
-
-def signup(request):
-    if request.method == "POST":
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            user = User.objects.create_user(
-                    form.cleaned_data["username"],
-                    form.cleaned_data["email"],
-                    form.cleaned_data["password1"],)
-            user = auth.authenticate(
-                    username=form.cleaned_data["username"],
-                    password=form.cleaned_data["password1"])
-            auth.login(request, user)
-            return HttpResponseRedirect("/")
-    else:
-        form = SignupForm()
-    template = {"form":form}
-    return render_to_response(
-        'account/signup.html', 
-        template, 
-        RequestContext(request))
