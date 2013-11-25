@@ -37,6 +37,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'oauth2app',
+    'crispy_forms',
+    'ldapOAuthProvider.apps.account',
+    'ldapOAuthProvider.apps.client',
+    'ldapOAuthProvider.apps.oauth2',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,6 +56,13 @@ ROOT_URLCONF = 'ldapOAuthProvider.urls'
 
 WSGI_APPLICATION = 'ldapOAuthProvider.wsgi.application'
 
+# LDAP configuration
+
+LDAP_HOST = 'ldap://localhost:1234/'
+LDAP_GROUP_BASE = 'ou=groups,dn=c-base,dn=org'
+LDAP_USER_DN = 'uid={},ou=crew,dn=c-base,dn=org'
+
+AUTHENTICATION_BACKENDS = ('ldapOAuthProvider.auth.ldap.LDAPBackend',)
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -81,3 +92,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap'

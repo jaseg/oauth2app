@@ -4,7 +4,8 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from uni_form.helpers import FormHelper, Submit, Reset
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit, Reset
 from django.contrib.auth.decorators import login_required
 from oauth2app.authorize import Authorizer, MissingRedirectURI, AuthorizationException
 from oauth2app.authorize import UnvalidatedRequest, UnauthenticatedUser
@@ -24,9 +25,9 @@ def authorize(request):
     authorizer = Authorizer()
     try:
         authorizer.validate(request)
-    except MissingRedirectURI, e:
+    except MissingRedirectURIe:
         return HttpResponseRedirect("/oauth2/missing_redirect_uri")
-    except AuthorizationException, e:
+    except AuthorizationException:
         # The request is malformed or invalid. Automatically 
         # redirects to the provided redirect URL.
         return authorizer.error_redirect()

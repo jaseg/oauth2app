@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, include, url
 
-urlpatterns = patterns('ldapOAuthProvider.apps.client.views',
-    (r'^(?P<client_id>\w+)/?$',            'client'),
+urlpatterns = patterns('',
+    url(r'^(?P<client_id>\w+)/?$', 'ldapOAuthProvider.apps.client.views.client'),
 )
